@@ -13,6 +13,7 @@ public class AlunoBean implements Serializable {
 
     private List<Aluno> alunos;
     private Aluno aluno = new Aluno();
+    private Aluno alunoSelecionado = new Aluno();
 
     @PostConstruct
     public void init() {
@@ -21,6 +22,24 @@ public class AlunoBean implements Serializable {
 
     public void atualizaListaAlunos() {
         alunos = EManager.getInstance().createNamedQuery("Aluno.findAll").getResultList();
+    }
+
+    public void modificaAluno() {
+        EManager.getInstance().getTransaction().begin();
+        EManager.getInstance().merge(this.alunoSelecionado);
+        EManager.getInstance().getTransaction().commit();
+        atualizaListaAlunos();
+    }
+    
+    public void deletaAluno() {
+        EManager.getInstance().getTransaction().begin();
+        EManager.getInstance().remove(this.alunoSelecionado);
+        EManager.getInstance().getTransaction().commit();
+        atualizaListaAlunos();
+    }
+
+    public void enviaAluno(Aluno a) {
+        this.alunoSelecionado = a;
     }
 
     public void novoCadastro() {
@@ -48,4 +67,12 @@ public class AlunoBean implements Serializable {
         this.aluno = aluno;
     }
 
+    public Aluno getAlunoSelecionado() {
+        return alunoSelecionado;
+    }
+
+    public void setAlunoSelecionado(Aluno alunoSelecionado) {
+        this.alunoSelecionado = alunoSelecionado;
+    }
+    
 }
