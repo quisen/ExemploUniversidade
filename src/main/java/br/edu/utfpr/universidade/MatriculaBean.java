@@ -12,6 +12,8 @@ import javax.faces.bean.ViewScoped;
 public class MatriculaBean implements Serializable {
 
     private List<Aluno> alunos;
+    private Aluno alunoSelecionado;
+    private Disciplina disciplinaSelecionada;
     private List<Disciplina> disciplinas;
     private List<AlunoMatriculado> matriculas;
     private List<matriculaMin> matriculasMin;
@@ -23,10 +25,14 @@ public class MatriculaBean implements Serializable {
         atualizaListaDisciplinas();
         atualizaListaMatriculas();
         matriculasMin = new ArrayList<>();
-        x();
+        agrupaDadosPorId();
+    }
+    
+    public void novaMatricula() {
+        
     }
 
-    public void x() {
+    public void agrupaDadosPorId() {
         for (int i = 0; i < matriculas.size(); i++) {
             matriculaMin mat = new matriculaMin();
             mat.setAluno((Aluno) EManager.getInstance().createNamedQuery("Aluno.findById").setParameter("id", matriculas.get(i).getIdAluno().getId()).getSingleResult());
@@ -87,7 +93,22 @@ public class MatriculaBean implements Serializable {
     public void setMatriculasMin(List<matriculaMin> matriculasMin) {
         this.matriculasMin = matriculasMin;
     }
-    
+
+    public Aluno getAlunoSelecionado() {
+        return alunoSelecionado;
+    }
+
+    public void setAlunoSelecionado(Aluno alunoSelecionado) {
+        this.alunoSelecionado = alunoSelecionado;
+    }
+
+    public Disciplina getDisciplinaSelecionada() {
+        return disciplinaSelecionada;
+    }
+
+    public void setDisciplinaSelecionada(Disciplina disciplinaSelecionada) {
+        this.disciplinaSelecionada = disciplinaSelecionada;
+    }
     
 
     public class matriculaMin {
