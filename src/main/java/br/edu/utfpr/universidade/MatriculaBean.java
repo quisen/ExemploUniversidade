@@ -12,27 +12,34 @@ import javax.faces.bean.ViewScoped;
 public class MatriculaBean implements Serializable {
 
     private List<Aluno> alunos;
-    private Aluno alunoSelecionado;
-    private Disciplina disciplinaSelecionada;
+    private Aluno alunoSelecionado = new Aluno();
+    private Disciplina disciplinaSelecionada = new Disciplina();
     private List<Disciplina> disciplinas;
     private List<AlunoMatriculado> matriculas;
-    private List<matriculaMin> matriculasMin;
+    private List<matriculaMin> matriculasMin = new ArrayList<>();;
     private AlunoMatriculado matriculaSelecionada = new AlunoMatriculado();
 
     @PostConstruct
     public void init() {
-        atualizaListaAlunos();
-        atualizaListaDisciplinas();
-        atualizaListaMatriculas();
-        matriculasMin = new ArrayList<>();
-        agrupaDadosPorId();
+        
+        atualizaTodos();
     }
     
     public void novaMatricula() {
-        
+        AlunoMatriculado matricula = new AlunoMatriculado();
+        matricula.setIdAluno(alunoSelecionado);
+        matricula.setIdDisciplina(disciplinaSelecionada);
+        EManager.getInstance().getTransaction().begin();
+        EManager.getInstance().persist(matricula);
+        EManager.getInstance().getTransaction().commit();
+        this.alunoSelecionado = new Aluno();
+        this.disciplinaSelecionada = new Disciplina();
+        atualizaTodos();
     }
 
     public void agrupaDadosPorId() {
+        this.matriculasMin = new ArrayList<>();
+        
         for (int i = 0; i < matriculas.size(); i++) {
             matriculaMin mat = new matriculaMin();
             mat.setAluno((Aluno) EManager.getInstance().createNamedQuery("Aluno.findById").setParameter("id", matriculas.get(i).getIdAluno().getId()).getSingleResult());
@@ -40,6 +47,13 @@ public class MatriculaBean implements Serializable {
 
             matriculasMin.add(mat);
         }
+    }
+    
+    public void atualizaTodos() {
+        atualizaListaAlunos();
+        atualizaListaDisciplinas();
+        atualizaListaMatriculas();
+        agrupaDadosPorId();
     }
 
     public void atualizaListaAlunos() {
