@@ -16,15 +16,15 @@ public class MatriculaBean implements Serializable {
     private Disciplina disciplinaSelecionada = new Disciplina();
     private List<Disciplina> disciplinas;
     private List<AlunoMatriculado> matriculas;
-    private List<matriculaMin> matriculasMin = new ArrayList<>();;
+    private List<matriculaMin> matriculasMin = new ArrayList<>();
     private AlunoMatriculado matriculaSelecionada = new AlunoMatriculado();
+    private matriculaMin matriculaMinSelecionada = new matriculaMin();
 
     @PostConstruct
     public void init() {
-        
         atualizaTodos();
     }
-    
+
     public void novaMatricula() {
         AlunoMatriculado matricula = new AlunoMatriculado();
         matricula.setIdAluno(alunoSelecionado);
@@ -39,7 +39,7 @@ public class MatriculaBean implements Serializable {
 
     public void agrupaDadosPorId() {
         this.matriculasMin = new ArrayList<>();
-        
+
         for (int i = 0; i < matriculas.size(); i++) {
             matriculaMin mat = new matriculaMin();
             mat.setAluno((Aluno) EManager.getInstance().createNamedQuery("Aluno.findById").setParameter("id", matriculas.get(i).getIdAluno().getId()).getSingleResult());
@@ -48,12 +48,24 @@ public class MatriculaBean implements Serializable {
             matriculasMin.add(mat);
         }
     }
-    
+
     public void atualizaTodos() {
         atualizaListaAlunos();
         atualizaListaDisciplinas();
         atualizaListaMatriculas();
         agrupaDadosPorId();
+    }
+
+    public void enviaMatricula(matriculaMin a) {
+        this.matriculaMinSelecionada = a;
+    }
+
+    public void deletaMatricula() {
+        //TODO
+    }
+
+    public void modificaMatricula() {
+        //TODO
     }
 
     public void atualizaListaAlunos() {
@@ -123,6 +135,15 @@ public class MatriculaBean implements Serializable {
     public void setDisciplinaSelecionada(Disciplina disciplinaSelecionada) {
         this.disciplinaSelecionada = disciplinaSelecionada;
     }
+
+    public matriculaMin getMatriculaMinSelecionada() {
+        return matriculaMinSelecionada;
+    }
+
+    public void setMatriculaMinSelecionada(matriculaMin matriculaMinSelecionada) {
+        this.matriculaMinSelecionada = matriculaMinSelecionada;
+    }
+    
     
 
     public class matriculaMin {
