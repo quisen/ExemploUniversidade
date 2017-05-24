@@ -40,6 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Aluno.findByPeriodo", query = "SELECT a FROM Aluno a WHERE a.periodo = :periodo")})
 public class Aluno implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAluno")
+    private Collection<Matricula> matriculaCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -159,6 +162,15 @@ public class Aluno implements Serializable {
     @Override
     public String toString() {
         return "br.edu.utfpr.universidade.Aluno[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Matricula> getMatriculaCollection() {
+        return matriculaCollection;
+    }
+
+    public void setMatriculaCollection(Collection<Matricula> matriculaCollection) {
+        this.matriculaCollection = matriculaCollection;
     }
     
 }

@@ -15,9 +15,9 @@ public class MatriculaBean implements Serializable {
     private Aluno alunoSelecionado = new Aluno();
     private Disciplina disciplinaSelecionada = new Disciplina();
     private List<Disciplina> disciplinas;
-    private List<AlunoMatriculado> matriculas;
+    private List<Matricula> matriculas;
     private List<matriculaMin> matriculasMin = new ArrayList<>();
-    private AlunoMatriculado matriculaSelecionada = new AlunoMatriculado();
+    private Matricula matriculaSelecionada = new Matricula();
     private matriculaMin matriculaMinSelecionada = new matriculaMin();
 
     @PostConstruct
@@ -26,7 +26,7 @@ public class MatriculaBean implements Serializable {
     }
 
     public void novaMatricula() {
-        AlunoMatriculado matricula = new AlunoMatriculado();
+        Matricula matricula = new Matricula();
         matricula.setIdAluno(alunoSelecionado);
         matricula.setIdDisciplina(disciplinaSelecionada);
         EManager.getInstance().getTransaction().begin();
@@ -42,6 +42,7 @@ public class MatriculaBean implements Serializable {
 
         for (int i = 0; i < matriculas.size(); i++) {
             matriculaMin mat = new matriculaMin();
+            mat.setId(matriculas.get(i).getId());
             mat.setAluno((Aluno) EManager.getInstance().createNamedQuery("Aluno.findById").setParameter("id", matriculas.get(i).getIdAluno().getId()).getSingleResult());
             mat.setDisciplina((Disciplina) EManager.getInstance().createNamedQuery("Disciplina.findById").setParameter("id", matriculas.get(i).getIdDisciplina().getId()).getSingleResult());
 
@@ -61,11 +62,27 @@ public class MatriculaBean implements Serializable {
     }
 
     public void deletaMatricula() {
-        //TODO
+        Matricula matricula = new Matricula();
+        matricula.setId(matriculaMinSelecionada.getId());
+        EManager.getInstance().getTransaction().begin();
+        EManager.getInstance().remove(
+                EManager.getInstance().find(
+                        Matricula.class, matricula.getId()
+                )
+        );
+        EManager.getInstance().getTransaction().commit();
+        atualizaTodos();
     }
 
     public void modificaMatricula() {
-        //TODO
+        Matricula matricula = new Matricula();
+        matricula.setId(matriculaMinSelecionada.getId());
+        matricula.setIdAluno(matriculaMinSelecionada.getAluno());
+        matricula.setIdDisciplina(matriculaMinSelecionada.getDisciplina());
+        EManager.getInstance().getTransaction().begin();
+        EManager.getInstance().merge(matricula);
+        EManager.getInstance().getTransaction().commit();
+        atualizaTodos();
     }
 
     public void atualizaListaAlunos() {
@@ -77,7 +94,7 @@ public class MatriculaBean implements Serializable {
     }
 
     public void atualizaListaMatriculas() {
-        matriculas = EManager.getInstance().createNamedQuery("AlunoMatriculado.findAll").getResultList();
+        matriculas = EManager.getInstance().createNamedQuery("Matricula.findAll").getResultList();
     }
 
     public List<Aluno> getAlunos() {
@@ -96,19 +113,19 @@ public class MatriculaBean implements Serializable {
         this.disciplinas = disciplinas;
     }
 
-    public List<AlunoMatriculado> getMatriculas() {
+    public List<Matricula> getMatriculas() {
         return matriculas;
     }
 
-    public void setMatriculas(List<AlunoMatriculado> matriculas) {
+    public void setMatriculas(List<Matricula> matriculas) {
         this.matriculas = matriculas;
     }
 
-    public AlunoMatriculado getMatriculaSelecionada() {
+    public Matricula getMatriculaSelecionada() {
         return matriculaSelecionada;
     }
 
-    public void setMatriculaSelecionada(AlunoMatriculado matriculaSelecionada) {
+    public void setMatriculaSelecionada(Matricula matriculaSelecionada) {
         this.matriculaSelecionada = matriculaSelecionada;
     }
 
@@ -143,15 +160,22 @@ public class MatriculaBean implements Serializable {
     public void setMatriculaMinSelecionada(matriculaMin matriculaMinSelecionada) {
         this.matriculaMinSelecionada = matriculaMinSelecionada;
     }
-    
-    
 
     public class matriculaMin {
 
+        int id;
         Aluno aluno;
         Disciplina disciplina;
 
         public matriculaMin() {
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
         }
 
         public Aluno getAluno() {

@@ -52,7 +52,7 @@ public class Disciplina implements Serializable {
     @Column(name = "professor")
     private String professor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDisciplina")
-    private Collection<AlunoMatriculado> alunoMatriculadoCollection;
+    private Collection<Matricula> alunoMatriculadoCollection;
 
     public Disciplina() {
     }
@@ -94,11 +94,11 @@ public class Disciplina implements Serializable {
     }
 
     @XmlTransient
-    public Collection<AlunoMatriculado> getAlunoMatriculadoCollection() {
+    public Collection<Matricula> getAlunoMatriculadoCollection() {
         return alunoMatriculadoCollection;
     }
 
-    public void setAlunoMatriculadoCollection(Collection<AlunoMatriculado> alunoMatriculadoCollection) {
+    public void setAlunoMatriculadoCollection(Collection<Matricula> alunoMatriculadoCollection) {
         this.alunoMatriculadoCollection = alunoMatriculadoCollection;
     }
 
