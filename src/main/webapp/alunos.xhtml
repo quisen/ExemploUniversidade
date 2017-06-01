@@ -1,24 +1,24 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-    <h:head>
-        <title>Universidade Exemplo</title>
-    </h:head>
 
     <h:body>
         <ui:composition template="./template.xhtml">
             <ui:define name="content">
                 <h:form id="tabela">
-                    <p:commandButton value="Cadastrar novo Aluno" process="@this" update=":cadastro:novo-aluno-dialog"
-                                     oncomplete="PF('novo-aluno-widget').show()" />
+                    <p:commandButton value="Cadastrar novo Aluno" process="@this"
+                                     update=":cadastro:novo-aluno-dialog"
+                                     oncomplete="PF('novo-aluno-widget').show()"/>
                     <br/>
                     <br/>
-                    <p:dataTable id="tabela-alunos" var="aluno" value="#{alunoBean.alunos}" tableStyle="text-align:center">
+                    <p:dataTable id="tabela-alunos"
+                                 var="aluno"
+                                 value="#{alunoBean.alunos}"
+                                 tableStyle="text-align:center">
+
                         <p:column headerText="Id">
                             <h:outputText value="#{aluno.id}" />
                         </p:column>
@@ -48,9 +48,12 @@
                         </p:column>
 
                         <p:column style="width:40px;text-align: center">
-                            <p:commandButton update=":modifica:modifica-aluno-panel" oncomplete="PF('modifica-aluno-widget').show()" icon="ui-icon-arrow-4-diag"
+                            <p:commandButton update=":modifica:modifica-aluno-panel"
+                                             oncomplete="PF('modifica-aluno-widget').show()"
+                                             icon="ui-icon-arrow-4-diag"
                                              title="View" action="#{alunoBean.enviaAluno(aluno)}" />
                         </p:column>
+
                     </p:dataTable>
                 </h:form>
 
