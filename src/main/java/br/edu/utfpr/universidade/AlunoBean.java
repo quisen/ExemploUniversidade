@@ -32,7 +32,7 @@ public class AlunoBean implements Serializable {
     }
     
     public void deletaAluno() {
-        List<Matricula> m = EManager.getInstance().createNamedQuery("Matricula.findByAluno").getResultList();
+        List<Matricula> m = EManager.getInstance().createNamedQuery("Matricula.findByAluno").setParameter("idAluno", this.alunoSelecionado.getId()).getResultList();
         EManager.getInstance().getTransaction().begin();
         for (int i = 0; i < m.size(); i++) {
             EManager.getInstance().remove(m.get(i));
