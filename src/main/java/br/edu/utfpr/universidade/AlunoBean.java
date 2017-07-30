@@ -23,22 +23,22 @@ public class AlunoBean implements Serializable {
     }
 
     public void atualizaListaAlunos() {
-        alunos = EManager.getAlunos();
+        alunos = EManager.getInstance().getAlunoAccessor().getAlunos();
     }
 
     public void modificaAluno() {
-        EManager.modificaAluno(this.alunoSelecionado);
+        EManager.getInstance().getAlunoAccessor().modificaAluno(aluno);
         atualizaListaAlunos();
     }
 
     public void deletaAluno() {
-        EManager.deletaAluno(this.alunoSelecionado);
+        EManager.getInstance().getAlunoAccessor().deletaAluno(this.alunoSelecionado);
         atualizaListaAlunos();
     }
 
     public void enviaAluno(Aluno a) {
         this.alunoSelecionado = a;
-        List<Matricula> m = EManager.getMatriculas(a);
+        List<Matricula> m = EManager.getInstance().getAlunoAccessor().getMatriculas(a);
         if (m.size() > 0) {
             this.msgConfirmacao = "Tem certeza? A remoção do(a) aluno(a) acarretará na exclusão de todas as respectivas matrículas.";
             this.larguraPopupConfirma = 400;
@@ -49,7 +49,7 @@ public class AlunoBean implements Serializable {
     }
 
     public void novoCadastro() {
-        EManager.insereAluno(aluno);
+        EManager.getInstance().getAlunoAccessor().insereAluno(aluno);
         atualizaListaAlunos();
     }
 

@@ -1,84 +1,43 @@
 package br.edu.utfpr.universidade;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+
+import br.edu.utfpr.universidade.wtv.AlunoAccessor;
 
 public class EManager implements Serializable {
 
     private static final long serialVersionUID = 3675946111000695658L;
 
-    /* Mutex for ensuring the "EManager" singleton is created only once. */
-    private static final Object emLock = new Object();
-    private static EntityManager em = null;
+    private static final Object singletonLock = new Object();
+    private static EManager instance = null;
+
+    private final EntityManager em;
 
     /* Mutex for ensuring mutual exclusion of access to the database. */
-    private static final Object operationLock = new Object();
+    private final Object operationLock = new Object();
+    private final AlunoAccessor alunoAccessor;
 
-    private EManager() {
-    }
-
-    public static EntityManager getInstance() {
-        if (em == null) {
-            synchronized (emLock) {
-                if (em == null) {
-                    em = Persistence.createEntityManagerFactory("UniversidadePU").createEntityManager();
+    public static EManager getInstance() {
+        if (instance == null) {
+            synchronized (singletonLock) {
+                if (instance == null) {
+                    instance = new EManager();
                 }
             }
         }
-        return em;
+        return instance;
     }
 
-    public static List<Aluno> getAlunos() {
-        synchronized (operationLock) {
-            return getInstance().createNamedQuery("Aluno.findAll").getResultList();
-        }
+    private EManager() {
+        this.em = Persistence.createEntityManagerFactory("UniversidadePU").createEntityManager();
+        this.alunoAccessor = new AlunoAccessor(this.em, this.operationLock);
     }
 
-    public static void modificaAluno(Aluno aluno) {
-        synchronized (operationLock) {
-            getInstance().getTransaction().begin();
-            getInstance().merge(aluno);
-            getInstance().getTransaction().commit();
-        }
-    }
-
-    public static void deletaAluno(Aluno aluno) {
-        synchronized (operationLock) {
-            List<Matricula> m = getMatriculas(aluno);
-            getInstance().getTransaction().begin();
-            for (int i = 0; i < m.size(); i++) {
-                EManager.getInstance().remove(m.get(i));
-            }
-            EManager.getInstance().remove(aluno);
-            EManager.getInstance().getTransaction().commit();
-        }
-    }
-
-    /**
-     * Returns the matricula associated with selected aluno
-     *
-     * @param aluno
-     *
-     */
-    public static List<Matricula> getMatriculas(Aluno aluno) {
-        synchronized (operationLock) {
-            return getInstance().createNamedQuery("Matricula.findByAluno").setParameter("idAluno", aluno.getId())
-                    .getResultList();
-        }
-    }
-
-    public static void insereAluno(Aluno aluno) {
-        synchronized (operationLock) {
-            aluno.setMatricula(1000000 + new Random().nextInt(9999999 - 1000000 + 1));
-            EManager.getInstance().getTransaction().begin();
-            EManager.getInstance().persist(aluno);
-            EManager.getInstance().getTransaction().commit();
-            aluno = new Aluno();
-        }
+    public AlunoAccessor getAlunoAccessor() {
+        return this.alunoAccessor;
     }
 
 }
