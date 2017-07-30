@@ -4,6 +4,11 @@
     <non-jta-data-source>java:app/universidade</non-jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
-    <properties/>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/universidade" />
+      <property name="javax.persistence.jdbc.user" value="root" />
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+      <!-- property name="javax.persistence.jdbc.password" value="PUT_MYSQL_PASSWORD_HERE" /-->
+    </properties>
   </persistence-unit>
 </persistence>
