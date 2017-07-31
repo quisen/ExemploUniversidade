@@ -63,7 +63,7 @@ public class AlunoAccessor {
             this.manager.getTransaction().begin();
             this.manager.persist(aluno);
             this.manager.getTransaction().commit();
-            aluno = new Aluno();
+            
         }
     }
 

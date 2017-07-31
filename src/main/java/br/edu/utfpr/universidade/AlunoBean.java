@@ -27,7 +27,7 @@ public class AlunoBean implements Serializable {
     }
 
     public void modificaAluno() {
-        EManager.getInstance().getAlunoAccessor().modificaAluno(aluno);
+        EManager.getInstance().getAlunoAccessor().modificaAluno(this.alunoSelecionado);
         atualizaListaAlunos();
     }
 
@@ -50,6 +50,7 @@ public class AlunoBean implements Serializable {
 
     public void novoCadastro() {
         EManager.getInstance().getAlunoAccessor().insereAluno(aluno);
+        aluno = new Aluno();
         atualizaListaAlunos();
     }
 
