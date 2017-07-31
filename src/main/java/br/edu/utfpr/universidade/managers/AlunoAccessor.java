@@ -1,12 +1,12 @@
-package br.edu.utfpr.universidade.wtv;
+package br.edu.utfpr.universidade.managers;
 
 import java.util.List;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
 
-import br.edu.utfpr.universidade.Aluno;
-import br.edu.utfpr.universidade.Matricula;
+import br.edu.utfpr.universidade.pojos.Aluno;
+import br.edu.utfpr.universidade.pojos.Matricula;
 
 public class AlunoAccessor {
 
@@ -45,7 +45,7 @@ public class AlunoAccessor {
     }
 
     /**
-     * Returns the matricula associated with selected aluno
+     * Retorna a matricula associada com o aluno selecionado
      *
      * @param aluno
      *

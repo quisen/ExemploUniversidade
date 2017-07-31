@@ -1,11 +1,11 @@
-package br.edu.utfpr.universidade;
+package br.edu.utfpr.universidade.managers;
 
 import java.io.Serializable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
-import br.edu.utfpr.universidade.wtv.AlunoAccessor;
+import br.edu.utfpr.universidade.managers.AlunoAccessor;
 
 public class EManager implements Serializable {
 
