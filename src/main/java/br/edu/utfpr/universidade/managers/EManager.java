@@ -5,8 +5,6 @@ import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
-import br.edu.utfpr.universidade.managers.AlunoAccessor;
-
 public class EManager implements Serializable {
 
     private static final long serialVersionUID = 3675946111000695658L;
@@ -19,6 +17,7 @@ public class EManager implements Serializable {
     /* Mutex for ensuring mutual exclusion of access to the database. */
     private final Object operationLock = new Object();
     private final AlunoAccessor alunoAccessor;
+    private final DisciplinaAccessor disciplinaAccessor;
 
     public static EManager getInstance() {
         if (instance == null) {
@@ -34,10 +33,15 @@ public class EManager implements Serializable {
     private EManager() {
         this.em = Persistence.createEntityManagerFactory("UniversidadePU").createEntityManager();
         this.alunoAccessor = new AlunoAccessor(this.em, this.operationLock);
+        this.disciplinaAccessor = new DisciplinaAccessor(this.em, this.operationLock);
     }
 
     public AlunoAccessor getAlunoAccessor() {
         return this.alunoAccessor;
+    }
+
+    public DisciplinaAccessor getDisciplinaAccessor() {
+        return disciplinaAccessor;
     }
 
 }

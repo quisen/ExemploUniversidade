@@ -1,9 +1,12 @@
-package br.edu.utfpr.universidade;
+package br.edu.utfpr.universidade.managers;
 
+import br.edu.utfpr.universidade.pojos.Matricula;
+import br.edu.utfpr.universidade.pojos.Disciplina;
 import java.io.Serializable;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
+
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 @ManagedBean
@@ -22,30 +25,22 @@ public class DisciplinaBean implements Serializable {
     }
 
     public void atualizaListaDisciplinas() {
-        disciplinas = EManager.getInstance().createNamedQuery("Disciplina.findAll").getResultList();
+        disciplinas = EManager.getInstance().getDisciplinaAccessor().getDisciplinas();
     }
 
     public void modificaDisciplina() {
-        EManager.getInstance().getTransaction().begin();
-        EManager.getInstance().merge(this.disciplinaSelecionada);
-        EManager.getInstance().getTransaction().commit();
+        EManager.getInstance().getDisciplinaAccessor().modificaDisciplina(disciplinaSelecionada);
         atualizaListaDisciplinas();
     }
 
     public void deletaDisciplina() {
-        List<Matricula> m = EManager.getInstance().createNamedQuery("Matricula.findByDisciplina").setParameter("idDisciplina", this.disciplinaSelecionada.getId()).getResultList();
-        EManager.getInstance().getTransaction().begin();
-        for (int i = 0; i < m.size(); i++) {
-            EManager.getInstance().remove(m.get(i));
-        }
-        EManager.getInstance().remove(this.disciplinaSelecionada);
-        EManager.getInstance().getTransaction().commit();
+        EManager.getInstance().getDisciplinaAccessor().deletaDisciplina(disciplinaSelecionada);
         atualizaListaDisciplinas();
     }
 
-    public void enviaDisciplina(Disciplina a) {
-        this.disciplinaSelecionada = a;
-        List<Matricula> m = EManager.getInstance().createNamedQuery("Matricula.findByDisciplina").setParameter("idDisciplina", this.disciplinaSelecionada.getId()).getResultList();
+    public void enviaDisciplina(Disciplina d) {
+        this.disciplinaSelecionada = d;
+        List<Matricula> m = EManager.getInstance().getDisciplinaAccessor().getMatriculas(d);
         if (m.size() > 0) {
             this.msgConfirmacao = "Tem certeza? A remoção da disciplina acarretará na exclusão de todas as respectivas matrículas.";
             this.larguraPopupConfirma = 400;
@@ -56,9 +51,7 @@ public class DisciplinaBean implements Serializable {
     }
 
     public void novoCadastro() {
-        EManager.getInstance().getTransaction().begin();
-        EManager.getInstance().persist(this.disciplina);
-        EManager.getInstance().getTransaction().commit();
+        EManager.getInstance().getDisciplinaAccessor().insereDisciplina(disciplina);
         this.disciplina = new Disciplina();
         atualizaListaDisciplinas();
     }
@@ -102,5 +95,5 @@ public class DisciplinaBean implements Serializable {
     public void setLarguraPopupConfirma(int larguraPopupConfirma) {
         this.larguraPopupConfirma = larguraPopupConfirma;
     }
-    
+
 }

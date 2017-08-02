@@ -1,4 +1,4 @@
-package br.edu.utfpr.universidade.resolver;
+package br.edu.utfpr.universidade.managers;
 
 //package br.edu.utfpr.universidade;
 //
