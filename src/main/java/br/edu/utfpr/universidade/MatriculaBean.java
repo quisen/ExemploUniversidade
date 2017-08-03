@@ -16,9 +16,7 @@ public class MatriculaBean implements Serializable {
     private Disciplina disciplinaSelecionada = new Disciplina();
     private List<Disciplina> disciplinas;
     private List<Matricula> matriculas;
-    private List<matriculaMin> matriculasMin = new ArrayList<>();
     private Matricula matriculaSelecionada = new Matricula();
-    private matriculaMin matriculaMinSelecionada = new matriculaMin();
 
     @PostConstruct
     public void init() {
@@ -37,33 +35,19 @@ public class MatriculaBean implements Serializable {
         atualizaTodos();
     }
 
-    public void agrupaDadosPorId() {
-        this.matriculasMin = new ArrayList<>();
-
-        for (int i = 0; i < matriculas.size(); i++) {
-            matriculaMin mat = new matriculaMin();
-            mat.setId(matriculas.get(i).getId());
-            mat.setAluno((Aluno) EManager.getInstance().createNamedQuery("Aluno.findById").setParameter("id", matriculas.get(i).getIdAluno().getId()).getSingleResult());
-            mat.setDisciplina((Disciplina) EManager.getInstance().createNamedQuery("Disciplina.findById").setParameter("id", matriculas.get(i).getIdDisciplina().getId()).getSingleResult());
-
-            matriculasMin.add(mat);
-        }
-    }
-
     public void atualizaTodos() {
         atualizaListaAlunos();
         atualizaListaDisciplinas();
         atualizaListaMatriculas();
-        agrupaDadosPorId();
     }
 
-    public void enviaMatricula(matriculaMin a) {
-        this.matriculaMinSelecionada = a;
+    public void enviaMatricula(Matricula a) {
+        this.matriculaSelecionada = a;
     }
 
     public void deletaMatricula() {
         Matricula matricula = new Matricula();
-        matricula.setId(matriculaMinSelecionada.getId());
+        matricula.setId(matriculaSelecionada.getId());
         EManager.getInstance().getTransaction().begin();
         EManager.getInstance().remove(
                 EManager.getInstance().find(
@@ -76,9 +60,9 @@ public class MatriculaBean implements Serializable {
 
     public void modificaMatricula() {
         Matricula matricula = new Matricula();
-        matricula.setId(matriculaMinSelecionada.getId());
-        matricula.setIdAluno(matriculaMinSelecionada.getAluno());
-        matricula.setIdDisciplina(matriculaMinSelecionada.getDisciplina());
+        matricula.setId(matriculaSelecionada.getId());
+        matricula.setIdAluno(matriculaSelecionada.getIdAluno());
+        matricula.setIdDisciplina(matriculaSelecionada.getIdDisciplina());
         EManager.getInstance().getTransaction().begin();
         EManager.getInstance().merge(matricula);
         EManager.getInstance().getTransaction().commit();
@@ -129,14 +113,6 @@ public class MatriculaBean implements Serializable {
         this.matriculaSelecionada = matriculaSelecionada;
     }
 
-    public List<matriculaMin> getMatriculasMin() {
-        return matriculasMin;
-    }
-
-    public void setMatriculasMin(List<matriculaMin> matriculasMin) {
-        this.matriculasMin = matriculasMin;
-    }
-
     public Aluno getAlunoSelecionado() {
         return alunoSelecionado;
     }
@@ -151,49 +127,6 @@ public class MatriculaBean implements Serializable {
 
     public void setDisciplinaSelecionada(Disciplina disciplinaSelecionada) {
         this.disciplinaSelecionada = disciplinaSelecionada;
-    }
-
-    public matriculaMin getMatriculaMinSelecionada() {
-        return matriculaMinSelecionada;
-    }
-
-    public void setMatriculaMinSelecionada(matriculaMin matriculaMinSelecionada) {
-        this.matriculaMinSelecionada = matriculaMinSelecionada;
-    }
-
-    public class matriculaMin {
-
-        int id;
-        Aluno aluno;
-        Disciplina disciplina;
-
-        public matriculaMin() {
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public Aluno getAluno() {
-            return aluno;
-        }
-
-        public void setAluno(Aluno aluno) {
-            this.aluno = aluno;
-        }
-
-        public Disciplina getDisciplina() {
-            return disciplina;
-        }
-
-        public void setDisciplina(Disciplina disciplina) {
-            this.disciplina = disciplina;
-        }
-
     }
 
 }

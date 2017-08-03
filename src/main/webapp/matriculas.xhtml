@@ -16,36 +16,36 @@
                                      oncomplete="PF('nova-matricula-widget').show()" />
                     <br/>
                     <br/>
-                    <p:dataTable id="tabela-matriculas" var="matriculaMin" value="#{matriculaBean.matriculasMin}"
-                                 sortBy="#{matriculaMin.aluno.nome}" expandableRowGroups="true" tableStyle="text-align:center" >
+                    <p:dataTable id="tabela-matriculas" var="matricula" value="#{matriculaBean.matriculas}"
+                                 sortBy="#{matricula.idAluno.nome}" expandableRowGroups="true" tableStyle="text-align:center" >
 
                         <p:headerRow>
                             <p:column colspan="1">
-                                <h:outputText value="Aluno(a): #{matriculaMin.aluno.nome}" />
+                                <h:outputText value="Aluno(a): #{matricula.idAluno.nome}" />
                             </p:column>
                             <p:column colspan="1">
-                                <h:outputText value="RA: #{matriculaMin.aluno.matricula}" />
+                                <h:outputText value="RA: #{matricula.idAluno.matricula}" />
                             </p:column>
                             <p:column colspan="2">
-                                <h:outputText value="Período: #{matriculaMin.aluno.periodo}" />
+                                <h:outputText value="Período: #{matricula.idAluno.periodo}" />
                             </p:column>
                         </p:headerRow>
 
                         <p:column headerText="Disciplina">
-                            <h:outputText value="#{matriculaMin.disciplina.nome}" />
+                            <h:outputText value="#{matricula.idDisciplina.nome}" />
                         </p:column>
 
                         <p:column headerText="Professor">
-                            <h:outputText value="#{matriculaMin.disciplina.professor}" />
+                            <h:outputText value="#{matricula.idDisciplina.professor}" />
                         </p:column>
 
                         <p:column headerText="Período da Disciplina">
-                            <h:outputText value="#{matriculaMin.disciplina.periodo}" />
+                            <h:outputText value="#{matricula.idDisciplina.periodo}" />
                         </p:column>
 
                         <p:column style="width:40px;text-align: center">
                             <p:commandButton update=":modifica:modifica-matricula-panel" oncomplete="PF('modifica-matricula-widget').show()" icon="ui-icon-arrow-4-diag"
-                                             title="View" action="#{matriculaBean.enviaMatricula(matriculaMin)}" />
+                                             title="View" action="#{matriculaBean.enviaMatricula(matricula)}" />
                         </p:column>
                     </p:dataTable>
                 </h:form>
@@ -104,15 +104,15 @@
 
                             <h:panelGrid  columns="2" columnClasses="label,value">
                                 <p:outputLabel value="Aluno:" />
-                                <p:outputLabel value="#{matriculaBean.matriculaMinSelecionada.aluno.nome}" />
+                                <p:outputLabel value="#{matriculaBean.matriculaSelecionada.idAluno.nome}" />
                                 <br/>
                                 <p:outputLabel value=""/>
                                 <p:outputLabel value="RA:" />
-                                <p:outputLabel value="#{matriculaBean.matriculaMinSelecionada.aluno.matricula}" />
+                                <p:outputLabel value="#{matriculaBean.matriculaSelecionada.idAluno.matricula}" />
                                 <br/>
                                 <p:outputLabel value=""/>
                                 <p:outputLabel value="Disciplina"  />
-                                <p:selectOneMenu value="#{matriculaBean.matriculaMinSelecionada.disciplina}" converter="disciplinaConverter" panelStyle="width:180px"
+                                <p:selectOneMenu value="#{matriculaBean.matriculaSelecionada.idDisciplina}" converter="disciplinaConverter" panelStyle="width:180px"
                                                  effect="fade" var="d" style="width:160px" filter="true" filterMatchMode="startsWith">
                                     <f:selectItem itemLabel="Selecione" itemValue="" />
                                     <f:selectItems value="#{matriculaBean.disciplinas}" var="disciplina" itemLabel="#{disciplina.nome}" itemValue="#{disciplina}" />
