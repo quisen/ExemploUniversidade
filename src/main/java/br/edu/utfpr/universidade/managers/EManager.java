@@ -18,6 +18,7 @@ public class EManager implements Serializable {
     private final Object operationLock = new Object();
     private final AlunoAccessor alunoAccessor;
     private final DisciplinaAccessor disciplinaAccessor;
+    private final MatriculaAccessor matriculaAccessor;
 
     public static EManager getInstance() {
         if (instance == null) {
@@ -34,6 +35,7 @@ public class EManager implements Serializable {
         this.em = Persistence.createEntityManagerFactory("UniversidadePU").createEntityManager();
         this.alunoAccessor = new AlunoAccessor(this.em, this.operationLock);
         this.disciplinaAccessor = new DisciplinaAccessor(this.em, this.operationLock);
+        this.matriculaAccessor = new MatriculaAccessor(this.em, this.operationLock);
     }
 
     public AlunoAccessor getAlunoAccessor() {
@@ -43,5 +45,10 @@ public class EManager implements Serializable {
     public DisciplinaAccessor getDisciplinaAccessor() {
         return disciplinaAccessor;
     }
+
+    public MatriculaAccessor getMatriculaAccessor() {
+        return matriculaAccessor;
+    }
+    
 
 }
