@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.utfpr.universidade.pojos;
+package br.edu.utfpr.universidade.disciplina;
 
+import br.edu.utfpr.universidade.matricula.Matricula;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;

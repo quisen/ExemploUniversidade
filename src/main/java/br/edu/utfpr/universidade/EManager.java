@@ -1,5 +1,8 @@
-package br.edu.utfpr.universidade.managers;
+package br.edu.utfpr.universidade;
 
+import br.edu.utfpr.universidade.matricula.MatriculaAccessor;
+import br.edu.utfpr.universidade.disciplina.DisciplinaAccessor;
+import br.edu.utfpr.universidade.aluno.AlunoAccessor;
 import java.io.Serializable;
 
 import javax.persistence.EntityManager;

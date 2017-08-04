@@ -1,12 +1,12 @@
-package br.edu.utfpr.universidade.managers;
+package br.edu.utfpr.universidade.aluno;
 
 import java.util.List;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
 
-import br.edu.utfpr.universidade.pojos.Aluno;
-import br.edu.utfpr.universidade.pojos.Matricula;
+import br.edu.utfpr.universidade.aluno.Aluno;
+import br.edu.utfpr.universidade.matricula.Matricula;
 
 public class AlunoAccessor {
 

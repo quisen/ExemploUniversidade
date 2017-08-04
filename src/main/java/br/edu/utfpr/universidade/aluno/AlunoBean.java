@@ -1,7 +1,7 @@
-package br.edu.utfpr.universidade.managers;
+package br.edu.utfpr.universidade.aluno;
 
-import br.edu.utfpr.universidade.pojos.Matricula;
-import br.edu.utfpr.universidade.pojos.Aluno;
+import br.edu.utfpr.universidade.EManager;
+import br.edu.utfpr.universidade.matricula.Matricula;
 import java.io.Serializable;
 import java.util.List;
 

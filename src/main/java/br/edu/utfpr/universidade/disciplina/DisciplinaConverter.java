@@ -1,6 +1,6 @@
-package br.edu.utfpr.universidade.converters;
+package br.edu.utfpr.universidade.disciplina;
 
-import br.edu.utfpr.universidade.pojos.Disciplina;
+import br.edu.utfpr.universidade.disciplina.Disciplina;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;

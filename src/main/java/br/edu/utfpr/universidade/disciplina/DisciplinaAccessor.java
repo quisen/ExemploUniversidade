@@ -1,7 +1,7 @@
-package br.edu.utfpr.universidade.managers;
+package br.edu.utfpr.universidade.disciplina;
 
-import br.edu.utfpr.universidade.pojos.Disciplina;
-import br.edu.utfpr.universidade.pojos.Matricula;
+import br.edu.utfpr.universidade.disciplina.Disciplina;
+import br.edu.utfpr.universidade.matricula.Matricula;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -10,7 +10,7 @@ public class DisciplinaAccessor {
     private final EntityManager manager;
     private final Object operationLock;
 
-    DisciplinaAccessor(EntityManager manager, Object operationLock) {
+    public DisciplinaAccessor(EntityManager manager, Object operationLock) {
         this.manager = manager;
         this.operationLock = operationLock;
     }
