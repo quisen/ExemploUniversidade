@@ -4,7 +4,6 @@ import br.edu.utfpr.universidade.matricula.MatriculaAccessor;
 import br.edu.utfpr.universidade.disciplina.DisciplinaAccessor;
 import br.edu.utfpr.universidade.aluno.AlunoAccessor;
 import java.io.Serializable;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 

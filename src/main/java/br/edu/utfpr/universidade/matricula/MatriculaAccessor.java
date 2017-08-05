@@ -1,10 +1,7 @@
 package br.edu.utfpr.universidade.matricula;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
-
-import br.edu.utfpr.universidade.matricula.Matricula;
 
 public class MatriculaAccessor {
 
@@ -22,6 +19,14 @@ public class MatriculaAccessor {
         }
     }
 
+    public void insereMatricula(Matricula matricula) {
+        synchronized (this.operationLock) {
+            this.manager.getTransaction().begin();
+            this.manager.persist(matricula);
+            this.manager.getTransaction().commit();
+        }
+    }
+
     public void modificaMatricula(Matricula matricula) {
         synchronized (this.operationLock) {
             this.manager.getTransaction().begin();
@@ -35,14 +40,6 @@ public class MatriculaAccessor {
             Matricula matricula = this.manager.find(Matricula.class, matriculaId);
             this.manager.getTransaction().begin();
             this.manager.remove(matricula);
-            this.manager.getTransaction().commit();
-        }
-    }
-
-    public void insereMatricula(Matricula matricula) {
-        synchronized (this.operationLock) {
-            this.manager.getTransaction().begin();
-            this.manager.persist(matricula);
             this.manager.getTransaction().commit();
         }
     }

@@ -4,7 +4,6 @@ import br.edu.utfpr.universidade.EManager;
 import br.edu.utfpr.universidade.matricula.Matricula;
 import java.io.Serializable;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -28,6 +27,12 @@ public class AlunoBean implements Serializable {
         alunos = EManager.getInstance().getAlunoAccessor().getAlunos();
     }
 
+    public void novoCadastro() {
+        EManager.getInstance().getAlunoAccessor().insereAluno(aluno);
+        aluno = new Aluno();
+        atualizaListaAlunos();
+    }
+
     public void modificaAluno() {
         EManager.getInstance().getAlunoAccessor().modificaAluno(this.alunoSelecionado);
         atualizaListaAlunos();
@@ -48,12 +53,6 @@ public class AlunoBean implements Serializable {
             this.msgConfirmacao = "Tem certeza?";
             this.larguraPopupConfirma = 200;
         }
-    }
-
-    public void novoCadastro() {
-        EManager.getInstance().getAlunoAccessor().insereAluno(aluno);
-        aluno = new Aluno();
-        atualizaListaAlunos();
     }
 
     public List<Aluno> getAlunos() {
@@ -95,5 +94,5 @@ public class AlunoBean implements Serializable {
     public void setLarguraPopupConfirma(int larguraPopupConfirma) {
         this.larguraPopupConfirma = larguraPopupConfirma;
     }
-    
+
 }

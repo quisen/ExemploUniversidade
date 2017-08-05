@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.utfpr.universidade.disciplina;
 
 import br.edu.utfpr.universidade.matricula.Matricula;
@@ -23,10 +18,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author cnmoro
- */
 @Entity
 @Table(name = "disciplina")
 @XmlRootElement
@@ -36,6 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Disciplina.findByNome", query = "SELECT d FROM Disciplina d WHERE d.nome = :nome")
     , @NamedQuery(name = "Disciplina.findByPeriodo", query = "SELECT d FROM Disciplina d WHERE d.periodo = :periodo")
     , @NamedQuery(name = "Disciplina.findByProfessor", query = "SELECT d FROM Disciplina d WHERE d.professor = :professor")})
+
 public class Disciplina implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -125,7 +117,7 @@ public class Disciplina implements Serializable {
 
     @Override
     public String toString() {
-        return "br.edu.utfpr.universidade.Disciplina[ id=" + id + " ]";
+        return this.getClass().getName()+"[ id=" + id + " ]";
     }
     
 }

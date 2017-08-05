@@ -28,6 +28,12 @@ public class DisciplinaBean implements Serializable {
         disciplinas = EManager.getInstance().getDisciplinaAccessor().getDisciplinas();
     }
 
+    public void novoCadastro() {
+        EManager.getInstance().getDisciplinaAccessor().insereDisciplina(disciplina);
+        this.disciplina = new Disciplina();
+        atualizaListaDisciplinas();
+    }
+
     public void modificaDisciplina() {
         EManager.getInstance().getDisciplinaAccessor().modificaDisciplina(disciplinaSelecionada);
         atualizaListaDisciplinas();
@@ -48,12 +54,6 @@ public class DisciplinaBean implements Serializable {
             this.msgConfirmacao = "Tem certeza?";
             this.larguraPopupConfirma = 200;
         }
-    }
-
-    public void novoCadastro() {
-        EManager.getInstance().getDisciplinaAccessor().insereDisciplina(disciplina);
-        this.disciplina = new Disciplina();
-        atualizaListaDisciplinas();
     }
 
     public List<Disciplina> getDisciplinas() {

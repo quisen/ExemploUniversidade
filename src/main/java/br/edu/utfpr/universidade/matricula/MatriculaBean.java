@@ -26,38 +26,8 @@ public class MatriculaBean implements Serializable {
         atualizaTodos();
     }
 
-    public void novaMatricula() {
-        Matricula matricula = new Matricula();
-        matricula.setIdAluno(alunoSelecionado);
-        matricula.setIdDisciplina(disciplinaSelecionada);
-        EManager.getInstance().getMatriculaAccessor().insereMatricula(matricula);
-        this.alunoSelecionado = new Aluno();
-        this.disciplinaSelecionada = new Disciplina();
-        atualizaTodos();
-    }
-
-    public void atualizaTodos() {
-        atualizaListaAlunos();
-        atualizaListaDisciplinas();
-        atualizaListaMatriculas();
-    }
-
     public void enviaMatricula(Matricula m) {
         this.matriculaSelecionada = m;
-    }
-
-    public void deletaMatricula() {
-        EManager.getInstance().getMatriculaAccessor().deletaMatricula(this.matriculaSelecionada.getId());
-        atualizaTodos();
-    }
-
-    public void modificaMatricula() {
-        Matricula matricula = new Matricula();
-        matricula.setId(matriculaSelecionada.getId());
-        matricula.setIdAluno(matriculaSelecionada.getIdAluno());
-        matricula.setIdDisciplina(matriculaSelecionada.getIdDisciplina());
-        EManager.getInstance().getMatriculaAccessor().modificaMatricula(matriculaSelecionada);
-        atualizaTodos();
     }
 
     public void atualizaListaAlunos() {
@@ -70,6 +40,36 @@ public class MatriculaBean implements Serializable {
 
     public void atualizaListaMatriculas() {
         matriculas = EManager.getInstance().getMatriculaAccessor().getMatriculas();
+    }
+
+    public void atualizaTodos() {
+        atualizaListaAlunos();
+        atualizaListaDisciplinas();
+        atualizaListaMatriculas();
+    }
+
+    public void novaMatricula() {
+        Matricula matricula = new Matricula();
+        matricula.setIdAluno(alunoSelecionado);
+        matricula.setIdDisciplina(disciplinaSelecionada);
+        EManager.getInstance().getMatriculaAccessor().insereMatricula(matricula);
+        this.alunoSelecionado = new Aluno();
+        this.disciplinaSelecionada = new Disciplina();
+        atualizaTodos();
+    }
+
+    public void modificaMatricula() {
+        Matricula matricula = new Matricula();
+        matricula.setId(matriculaSelecionada.getId());
+        matricula.setIdAluno(matriculaSelecionada.getIdAluno());
+        matricula.setIdDisciplina(matriculaSelecionada.getIdDisciplina());
+        EManager.getInstance().getMatriculaAccessor().modificaMatricula(matriculaSelecionada);
+        atualizaTodos();
+    }
+
+    public void deletaMatricula() {
+        EManager.getInstance().getMatriculaAccessor().deletaMatricula(this.matriculaSelecionada.getId());
+        atualizaTodos();
     }
 
     public List<Aluno> getAlunos() {

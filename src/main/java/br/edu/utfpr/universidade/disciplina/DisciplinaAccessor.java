@@ -21,6 +21,27 @@ public class DisciplinaAccessor {
         }
     }
 
+    /**
+     * Retorna a matricula associada com a disciplina selecionada
+     *
+     * @param disciplina
+     *
+     */
+    public List<Matricula> getMatriculas(Disciplina disciplina) {
+        synchronized (this.operationLock) {
+            return this.manager.createNamedQuery("Matricula.findByDisciplina").setParameter("idDisciplina", disciplina.getId())
+                    .getResultList();
+        }
+    }
+
+    public void insereDisciplina(Disciplina disciplina) {
+        synchronized (this.operationLock) {
+            this.manager.getTransaction().begin();
+            this.manager.persist(disciplina);
+            this.manager.getTransaction().commit();
+        }
+    }
+
     public void modificaDisciplina(Disciplina disciplina) {
         synchronized (this.operationLock) {
             this.manager.getTransaction().begin();
@@ -37,27 +58,6 @@ public class DisciplinaAccessor {
                 this.manager.remove(m.get(i));
             }
             this.manager.remove(disciplina);
-            this.manager.getTransaction().commit();
-        }
-    }
-
-    /**
-     * Retorna a matricula associada com a disciplina selecionada
-     *
-     * @param disciplina
-     *
-     */
-    public List<Matricula> getMatriculas(Disciplina disciplina) {
-        synchronized (this.operationLock) {
-            return this.manager.createNamedQuery("Matricula.findByDisciplina").setParameter("idDisciplina", disciplina.getId())
-                    .getResultList();
-        }
-    }
-    
-    public void insereDisciplina(Disciplina disciplina){
-        synchronized(this.operationLock){
-            this.manager.getTransaction().begin();
-            this.manager.persist(disciplina);
             this.manager.getTransaction().commit();
         }
     }

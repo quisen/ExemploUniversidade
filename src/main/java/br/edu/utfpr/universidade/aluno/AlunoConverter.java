@@ -1,6 +1,5 @@
 package br.edu.utfpr.universidade.aluno;
 
-import br.edu.utfpr.universidade.aluno.Aluno;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
