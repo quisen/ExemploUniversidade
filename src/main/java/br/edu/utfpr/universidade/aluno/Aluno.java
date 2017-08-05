@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.edu.utfpr.universidade;
+package br.edu.utfpr.universidade.aluno;
 
+import br.edu.utfpr.universidade.matricula.Matricula;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -22,10 +18,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author cnmoro
- */
 @Entity
 @Table(name = "aluno")
 @XmlRootElement
@@ -38,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Aluno.findByTelefone", query = "SELECT a FROM Aluno a WHERE a.telefone = :telefone")
     , @NamedQuery(name = "Aluno.findByEndereco", query = "SELECT a FROM Aluno a WHERE a.endereco = :endereco")
     , @NamedQuery(name = "Aluno.findByPeriodo", query = "SELECT a FROM Aluno a WHERE a.periodo = :periodo")})
+
 public class Aluno implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAluno")
@@ -161,7 +154,7 @@ public class Aluno implements Serializable {
 
     @Override
     public String toString() {
-        return "br.edu.utfpr.universidade.Aluno[ id=" + id + " ]";
+        return this.getClass().getName()+"[ id=" + id + " ]";
     }
 
     @XmlTransient

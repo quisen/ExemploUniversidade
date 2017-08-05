@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.edu.utfpr.universidade;
+package br.edu.utfpr.universidade.matricula;
 
+import br.edu.utfpr.universidade.disciplina.Disciplina;
+import br.edu.utfpr.universidade.aluno.Aluno;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -19,10 +16,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author Carlo
- */
 @Entity
 @Table(name = "matricula")
 @XmlRootElement
@@ -31,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Matricula.findByAluno", query = "SELECT m FROM Matricula m JOIN m.idAluno i WHERE i.id = :idAluno")
     , @NamedQuery(name = "Matricula.findByDisciplina", query = "SELECT m FROM Matricula m JOIN m.idDisciplina d WHERE d.id = :idDisciplina")
     , @NamedQuery(name = "Matricula.findById", query = "SELECT m FROM Matricula m WHERE m.id = :id")})
+
 public class Matricula implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -99,7 +93,7 @@ public class Matricula implements Serializable {
 
     @Override
     public String toString() {
-        return "br.edu.utfpr.universidade.Matricula[ id=" + id + " ]";
+        return this.getClass().getName()+"[ id=" + id + " ]";
     }
 
 }
