@@ -1,6 +1,7 @@
-package br.edu.utfpr.universidade;
+package br.edu.universidade;
 
-import br.edu.utfpr.universidade.aluno.Aluno;
+import br.edu.universidade.EManager;
+import br.edu.universidade.aluno.Aluno;
 import java.util.List;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;

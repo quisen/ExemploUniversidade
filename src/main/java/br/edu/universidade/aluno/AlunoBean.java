@@ -1,7 +1,7 @@
-package br.edu.utfpr.universidade.aluno;
+package br.edu.universidade.aluno;
 
-import br.edu.utfpr.universidade.EManager;
-import br.edu.utfpr.universidade.matricula.Matricula;
+import br.edu.universidade.EManager;
+import br.edu.universidade.matricula.Matricula;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;

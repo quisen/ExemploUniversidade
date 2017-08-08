@@ -1,7 +1,7 @@
-package br.edu.utfpr.universidade.matricula;
+package br.edu.universidade.matricula;
 
-import br.edu.utfpr.universidade.disciplina.Disciplina;
-import br.edu.utfpr.universidade.aluno.Aluno;
+import br.edu.universidade.disciplina.Disciplina;
+import br.edu.universidade.aluno.Aluno;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;

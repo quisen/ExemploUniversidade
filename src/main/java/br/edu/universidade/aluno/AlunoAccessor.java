@@ -1,10 +1,10 @@
-package br.edu.utfpr.universidade.aluno;
+package br.edu.universidade.aluno;
 
 import java.util.List;
 import java.util.Random;
 import javax.persistence.EntityManager;
-import br.edu.utfpr.universidade.aluno.Aluno;
-import br.edu.utfpr.universidade.matricula.Matricula;
+import br.edu.universidade.aluno.Aluno;
+import br.edu.universidade.matricula.Matricula;
 
 public class AlunoAccessor {
 

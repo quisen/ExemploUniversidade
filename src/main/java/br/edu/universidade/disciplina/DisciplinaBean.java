@@ -1,7 +1,7 @@
-package br.edu.utfpr.universidade.disciplina;
+package br.edu.universidade.disciplina;
 
-import br.edu.utfpr.universidade.EManager;
-import br.edu.utfpr.universidade.matricula.Matricula;
+import br.edu.universidade.EManager;
+import br.edu.universidade.matricula.Matricula;
 import java.io.Serializable;
 import java.util.List;
 

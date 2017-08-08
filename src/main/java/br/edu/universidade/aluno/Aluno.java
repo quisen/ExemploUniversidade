@@ -1,6 +1,6 @@
-package br.edu.utfpr.universidade.aluno;
+package br.edu.universidade.aluno;
 
-import br.edu.utfpr.universidade.matricula.Matricula;
+import br.edu.universidade.matricula.Matricula;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;

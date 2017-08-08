@@ -1,4 +1,4 @@
-package br.edu.utfpr.universidade.matricula;
+package br.edu.universidade.matricula;
 
 import java.util.List;
 import javax.persistence.EntityManager;
