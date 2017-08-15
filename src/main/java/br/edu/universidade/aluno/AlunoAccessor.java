@@ -3,7 +3,6 @@ package br.edu.universidade.aluno;
 import java.util.List;
 import java.util.Random;
 import javax.persistence.EntityManager;
-import br.edu.universidade.aluno.Aluno;
 import br.edu.universidade.matricula.Matricula;
 
 public class AlunoAccessor {

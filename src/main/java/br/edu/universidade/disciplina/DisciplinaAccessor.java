@@ -1,6 +1,5 @@
 package br.edu.universidade.disciplina;
 
-import br.edu.universidade.disciplina.Disciplina;
 import br.edu.universidade.matricula.Matricula;
 import java.util.List;
 import javax.persistence.EntityManager;
